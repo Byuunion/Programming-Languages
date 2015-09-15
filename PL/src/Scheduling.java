@@ -1,3 +1,8 @@
+/* Created by Benson Xu
+ * Rowan University
+ * 9/15/2015
+ */
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,7 +15,10 @@ import java.util.Set;
 public class Scheduling { 
 	
 	public static void main(String[] args) {
-		readFile("C:/Users/BenX/git/Programing_Languages/PL/test");
+		readFile("H:/git/Programming-Languages/PL/test");
+		readFile("H:/git/Programming-Languages/PL/test2");
+		readFile("H:/git/Programming-Languages/PL/test3");
+		readFile("H:/git/Programming-Languages/PL/test4");
 	}
 	
 	// Attempts to read the text file and process it line by line
