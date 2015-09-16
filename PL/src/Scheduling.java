@@ -15,10 +15,10 @@ import java.util.Set;
 public class Scheduling { 
 	
 	public static void main(String[] args) {
-		readFile("H:/git/Programming-Languages/PL/test");
-		readFile("H:/git/Programming-Languages/PL/test2");
-		readFile("H:/git/Programming-Languages/PL/test3");
-		readFile("H:/git/Programming-Languages/PL/test4");
+		readFile("test");
+		readFile("test2");
+		readFile("test3");
+		readFile("test4");
 	}
 	
 	// Attempts to read the text file and process it line by line
