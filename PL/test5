@@ -1,5 +1,41 @@
 (define (jobs_ok? x y)
-	(#T()))
+	(cond())
+
+(define (jobs_ok? x)
+	;checks for duplicates
+	(check_rows? x x)
+
+		
+(define current_rows? x y)
+	;checks for duplicates in current row
+	;x = whole x anchor value
+	;y = copy of x to increment
+	;Base Case: Reached end of row with no duplicates: return true
+	;Recursion: Finished checking one element: recurse for next element
+	;			No match: compare with the cadr of y
+	
+	(cond((null? (cdr x)) (other_row_good? (x y)) ;anchor value reached end of row. Check other rows
+		 ((null? (cdr y) (current_row_good?((cadr x) (cddr y))) ;one wave is done check next element
+		 ((equal? (car x) (cadr y)) #F) ; match = duplicate 
+		 (else (current_row_good? ((car x) (cdr y)))))
+
+		
+(define other_row_good? x y)
+	;checks for duplicates in other rows
+	;x = value to compare from
+	;y = comparison value increment
+	
+	(cond((null? (cdr x)) #T) ;anchor value reached end return true no duplicates
+		 ((null? (cdr y) current_row_good?((cadr x) (cddr y))) ;one wave is done check next element
+		 ((equal? (car x) (cadr y)) #F) 
+		 (else (current_row_good? ((car x) (cdr y)))))
+	
+	
+	(null? car x) other_row_good?((cdr x) (cdr x)))
+		 ((equal? (car x) (cadr x)) #F)
+		 	other_row_good? (cdr x)
+
+
 
 (jobs_ok?
    '(
