@@ -1,0 +1,25 @@
+-- Read the work assignments
+-- Store in a 2-dimensional array
+
+for Shift in 1..4 loop
+	for Job in 1..3 loop
+		Get(Work_Schedule(Shift, Job));
+		Get(Dummy);	-- Read the space
+	end loop;
+	Get(Work_Schedule(Shift, 4));
+	Skip_Line;	-- Skip past the newline
+end loop;
+
+...
+
+-- Read the employees' skills
+-- Store in an array of records
+
+Get(Num_Employees);
+for Employee in 1..Num_Employees loop
+	Get(Abilities(Employee).Person);	-- character
+	Get(Abilities(Employee).Phone);		-- integer
+	Get(Abilities(Employee).Computer);	-- integer
+	Get(Abilities(Employee).Network);	-- integer
+	Skip_Line;	-- Prepare to read next name as character
+end loop;
