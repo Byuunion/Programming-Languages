@@ -7,45 +7,26 @@ use Numerics;
 
 procedure adaHW is              -- Main
 
-	My_File   : FILE_TYPE;
-	My_String : STRING(1..10);
-   
-	procedure Read_And_Write_File_Line_By_Line is
-	   Input: File_Type;
+	type Array_Type is array (1 .. 4, 1 .. 4) of Character;
+	Work_Schedule: Array_Type;
+	
+	type Employee is record
+		Person: Character;
+		Phone:
+		Computer:
+		Network:
+	end record;
+	
 	begin
-	   Open (File => Input,
-			 Mode => In_File,
-			 Name => "input.txt");
-	   loop
-		  declare
-			 Line : String := Get_Line (Input);
-		  begin
-			 -- You can process the contents of Line here.
-			 Put_Line (Output, Line);
-		  end;
-	   end loop;
-	   Close (Input);
-	   Close (Output);
-	exception
-	   when End_Error =>
-		  if Is_Open(Input) then 
-			 Close (Input);
-		  end if;
-		  if Is_Open(Output) then 
-			 Close (Output);
-		  end if;
-	end Read_And_Write_File_Line_By_Line;   
 	
-	
-
-for Shift in 1..4 loop
-	for Job in 1..3 loop
-		Get(Work_Schedule(Shift, Job));
-		Get(Dummy);	-- Read the space
+	for Shift in 1..4 loop
+		for Job in 1..3 loop
+			Get(Work_Schedule(Shift, Job));
+			Get(Dummy);	-- Read the space
+		end loop;
+		Get(Work_Schedule(Shift, 4));
+		Skip_Line;	-- Skip past the newline
 	end loop;
-	Get(Work_Schedule(Shift, 4));
-	Skip_Line;	-- Skip past the newline
-end loop;
 
 ...
 
@@ -61,6 +42,6 @@ for Employee in 1..Num_Employees loop
 	Skip_Line;	-- Prepare to read next name as character
 end loop;
 
-begin
+
 
 end adaHW;
