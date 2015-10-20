@@ -2,46 +2,76 @@
 -- Store in a 2-dimensional array
 with Ada.Text_IO, Ada.Integer_Text_IO;
 use Ada.Text_IO, Ada.Integer_Text_IO;
-with Numerics;
-use Numerics;
+with Ada.Characters.Handling;
+use Ada.Characters.Handling;
 
 procedure adaHW is              -- Main
 
-	type Array_Type is array (1 .. 4, 1 .. 4) of Character;
-	Work_Schedule: Array_Type;
+   type Array_Type is array (1 .. 4, 1 .. 4) of Character;
+   
+   type Super_Array is array (1..16) of Character;
+   Num_Employees: Integer;
+   Dummy: Character;
+   Work_Schedule: Array_Type;
+   Count: Integer := 0;
+   Big_Array: Super_Array;
 	
-	type Employee is record
-		Person: Character;
-		Phone:
-		Computer:
-		Network:
-	end record;
+   type Employee is record
+	Person: Character;
+	Phone: Character;
+	Computer: Character;
+	Network: Character;
+   end record;
 	
-	begin
-	
-	for Shift in 1..4 loop
-		for Job in 1..3 loop
-			Get(Work_Schedule(Shift, Job));
-			Get(Dummy);	-- Read the space
-		end loop;
-		Get(Work_Schedule(Shift, 4));
-		Skip_Line;	-- Skip past the newline
+begin
+     
+   for Shift in 1..4 loop
+	for Job in 1..3 loop
+		Get(Work_Schedule(Shift, Job));
+		Get(Dummy);	-- Read the space
 	end loop;
+	Get(Work_Schedule(Shift, 4));
+	Skip_Line;	-- Skip past the newline
+   end loop;
+   
+   -- Read the employees' skills
+   -- Store in an array of records
 
-...
-
--- Read the employees' skills
--- Store in an array of records
-
-Get(Num_Employees);
-for Employee in 1..Num_Employees loop
-	Get(Abilities(Employee).Person);	-- character
-	Get(Abilities(Employee).Phone);		-- integer
-	Get(Abilities(Employee).Computer);	-- integer
-	Get(Abilities(Employee).Network);	-- integer
-	Skip_Line;	-- Prepare to read next name as character
-end loop;
-
-
-
+   Get(Num_Employees);
+   
+   declare
+      Abilities : array(1..Num_Employees) of Employee;
+   begin
+   
+      for Employee in 1..Num_Employees loop
+         Get(Abilities(Employee).Person);	-- character
+         Get(Abilities(Employee).Phone);		-- integer
+         Get(Abilities(Employee).Computer);	-- integer
+         Get(Abilities(Employee).Network);	-- integer
+         Skip_Line;	-- Prepare to read next name as character
+      end loop;
+   end;
+   
+   
+   -- Populates a 1D arraylist for duplicate checking
+   for Shift in 1..4 loop
+	for Job in 1..4 loop
+		Big_Array(count) := (Work_Schedule(Shift, Job));
+		count:= count + 1;
+	end loop;
+   end loop;
+   
+   -- Detects duplicates in the shifts
+   function dupeCheck returns Boolean
+   begin
+      for I in 1..16 loop
+         tempStr: String := Big_Array(I);
+         if I = 16 then
+            return true;
+         if Is_Letter(Big_Array(I) : tempStr) then
+            return false;
+      end loop;  
+   end dupeCheck;
+         
+         
 end adaHW;
