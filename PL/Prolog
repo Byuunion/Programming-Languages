@@ -1,0 +1,14 @@
+http://swish.swi-prolog.org/
+
+pos_List([],[]).
+
+pos_List([H|T], [H|NewT]):- H > 0, pos_List(T,NewT).
+
+pos_List([H|T], [NewT]):- H =< 0, pos_List(T,NewT).
+
+check_dupe([],[]).
+
+check_dupe(Schedule,X):-
+    flatten(Schedule)
+    
+check_dupe([[a,b,c][a,d,e],X]
