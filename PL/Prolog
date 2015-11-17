@@ -1,7 +1,7 @@
 http://swish.swi-prolog.org/
 
 % jobs_ok(+Assignment, +Employees)
-% Main fucntion to execute to check for correct shifts
+% Main function to execute to check for correct shifts
 jobs_ok(Assignment, Employees):-
     check_dupe(Assignment),
     check_shift(Assignment, Employees).
@@ -10,7 +10,7 @@ jobs_ok(Assignment, Employees):-
 % Takes in a schedule and checks if there are any duplicates
 check_dupe(Schedule):-
     flatten(Schedule, X),
-	sort(X, Y),
+	list_to_set(X, Y),
 	same_length(X, Y).
 
 % check_shift(+Assignment, +EmployeeStats)
@@ -27,13 +27,15 @@ check_employee([[Name,_,_,_]|_], [Name,1,_,_]).
 check_employee([[_,Name,_,_]|_], [Name,1,_,_]).
 check_employee([[_,_,Name,_]|_], [Name,_,1,_]).
 check_employee([[_,_,_,Name]|_], [Name,_,_,1]). 
-                
-check_employee([_|T], Employee) :-
-	check_employee(T, Employee).
-                
+          
 check_employee(Assignment,[Name,_,_,_]) :-
     flatten(Assignment, X),
 	not(member(Name, X)).
+
+check_employee([_|T], Employee) :-
+	check_employee(T, Employee).
+                
+
 
 
 
@@ -89,4 +91,5 @@ jobs_ok(
 	[tortorella, 0, 0, 1],
 	[williams, 1, 0, 0],
 	[underwood, 0, 1, 0],
-	[young, 0, 1, 0],	
+	[young, 0, 1, 0],
+	[zimmerman, 1, 1, 1]]).
