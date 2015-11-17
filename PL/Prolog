@@ -1,43 +1,42 @@
 http://swish.swi-prolog.org/
 
-% jobs_ok(+Assignment, +Employees)
-% Main function to execute to check for correct shifts
+% By Benson Xu
+% jobs_ok(+Assignment, +Employees) 
+% Main fucntion to execute to check for correct shifts
 jobs_ok(Assignment, Employees):-
     check_dupe(Assignment),
-    check_shift(Assignment, Employees).
+    check_shift(Assignment, Employees, Assignment).
 
 % check_dupe(+Schedule)
 % Takes in a schedule and checks if there are any duplicates
 check_dupe(Schedule):-
     flatten(Schedule, X),
-	list_to_set(X, Y),
-	same_length(X, Y).
+    sort(X, Y),
+    same_length(X, Y).
 
-% check_shift(+Assignment, +EmployeeStats)
+% check_shift(+Assignment, +EmployeeStats, +FullAssignment)
 % Loop to take the shifts and compare with employee stats
-check_shift(Assignment, [EmployeeStats|OtherEmp]):-
-    check_employee(Assignment, EmployeeStats),
-    check_shift(Assignment, OtherEmp).
-check_shift(_,[]).
+% FullAssignment is an final static version of Assignment
+check_shift(Assignment, [EmployeeStats|OtherEmp],FullAssignment):-
+    check_employee(Assignment, EmployeeStats, FullAssignment),
+    check_shift(Assignment, OtherEmp,FullAssignment).
+check_shift(_,[],_).
 
-% check_employee(+shiftElements, +employeeElements)
+% check_employee(+shiftElements, +employeeElements, + FullAssignment)
 % compares the name of the current employee with the sublist
 % of employee stats to find if an employee is qualified
-check_employee([[Name,_,_,_]|_], [Name,1,_,_]).
-check_employee([[_,Name,_,_]|_], [Name,1,_,_]).
-check_employee([[_,_,Name,_]|_], [Name,_,1,_]).
-check_employee([[_,_,_,Name]|_], [Name,_,_,1]). 
-          
-check_employee(Assignment,[Name,_,_,_]) :-
-    flatten(Assignment, X),
-	not(member(Name, X)).
+check_employee([[Name,_,_,_]|_], [Name,1,_,_], _).
+check_employee([[_,Name,_,_]|_], [Name,1,_,_], _).
+check_employee([[_,_,Name,_]|_], [Name,_,1,_], _).
+check_employee([[_,_,_,Name]|_], [Name,_,_,1], _).
 
-check_employee([_|T], Employee) :-
-	check_employee(T, Employee).
-                
+check_employee([_|T], Employee, A) :-
+    check_employee(T, Employee, A).
 
-
-
+check_employee(_Assignment,[Name,_,_,_], A) :-
+    flatten(A, X),
+    not(member(Name, X)).
+    
 
 jobs_ok(
    [
