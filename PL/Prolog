@@ -1,14 +1,37 @@
 http://swish.swi-prolog.org/
 
-pos_List([],[]).
-
-pos_List([H|T], [H|NewT]):- H > 0, pos_List(T,NewT).
-
-pos_List([H|T], [NewT]):- H =< 0, pos_List(T,NewT).
-
 check_dupe([],[]).
+check_dupe(Schedule):-
+    flatten(Schedule, X),
+	sort(X, Y),
+	same_length(X, Y).
 
-check_dupe(Schedule,X):-
-    flatten(Schedule)
-    
-check_dupe([[a,b,c][a,d,e],X]
+%jobs_ok(+Assignment, +Employees)
+jobs_ok(Assignment, Employees):-
+    check_dupe(Assignment).
+	check_shift(
+
+jobs_ok(
+   [
+	[park, dunbar, knox, lloyd],
+	[brown, trivedi, ramos, franklin],
+	[schmidt, nakamura, adams, chen],
+	[evans, goldberg, macmillan, quincy]],
+   [
+	[adams, 1, 1, 1],
+	[brown, 1, 1, 1],
+	[chen, 1, 1, 1],
+	[dunbar, 1, 1, 1],
+	[evans, 1, 1, 1],
+	[franklin, 1, 1, 1],
+	[goldberg, 1, 1, 1],
+	[jefferson, 1, 1, 1],
+	[knox, 1, 1, 1],
+	[lloyd, 1, 1, 1],
+	[macmillan, 1, 1, 1],
+	[nakamura, 1, 1, 1],
+	[park, 1, 1, 1],
+	[quincy, 1, 1, 1],
+	[ramos, 1, 1, 1],
+	[schmidt, 1, 1, 1],
+	[trivedi, 1, 1, 1]]).
