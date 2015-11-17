@@ -1,15 +1,41 @@
 http://swish.swi-prolog.org/
 
-check_dupe([],[]).
+% jobs_ok(+Assignment, +Employees)
+% Main fucntion to execute to check for correct shifts
+jobs_ok(Assignment, Employees):-
+    check_dupe(Assignment),
+    check_shift(Assignment, Employees).
+
+% check_dupe(+Schedule)
+% Takes in a schedule and checks if there are any duplicates
 check_dupe(Schedule):-
     flatten(Schedule, X),
 	sort(X, Y),
 	same_length(X, Y).
 
-%jobs_ok(+Assignment, +Employees)
-jobs_ok(Assignment, Employees):-
-    check_dupe(Assignment).
-	check_shift(
+% check_shift(+Assignment, +EmployeeStats)
+% Loop to take the shifts and compare with employee stats
+check_shift(Assignment, [EmployeeStats|OtherEmp]):-
+    check_employee(Assignment, EmployeeStats),
+    check_shift(Assignment, OtherEmp).
+check_shift(_,[]).
+
+% check_employee(+shiftElements, +employeeElements)
+% compares the name of the current employee with the sublist
+% of employee stats to find if an employee is qualified
+check_employee([[Name,_,_,_]|_], [Name,1,_,_]).
+check_employee([[_,Name,_,_]|_], [Name,1,_,_]).
+check_employee([[_,_,Name,_]|_], [Name,_,1,_]).
+check_employee([[_,_,_,Name]|_], [Name,_,_,1]). 
+                
+check_employee([_|T], Employee) :-
+	check_employee(T, Employee).
+                
+check_employee(Assignment,[Name,_,_,_]) :-
+    flatten(Assignment, X),
+	not(member(Name, X)).
+
+
 
 jobs_ok(
    [
@@ -35,3 +61,32 @@ jobs_ok(
 	[ramos, 1, 1, 1],
 	[schmidt, 1, 1, 1],
 	[trivedi, 1, 1, 1]]).
+	
+	
+	
+jobs_ok(
+   [
+	[young, collins, baker, liu],
+	[davis, ericson, kelly, smith],
+	[fitzgerald, green, martinez, tortorella],
+	[hughes, jones, patel, zimmerman]],
+   [
+	[andrews, 1, 0, 0],
+	[baker, 0, 1, 1],
+	[collins, 1, 1, 1],
+	[davis, 1, 0, 0],
+	[ericson, 1, 0, 0],
+	[fitzgerald, 1, 0, 1],
+	[green, 1, 0, 1],
+	[hughes, 1, 0, 0],
+	[jones, 1, 1, 1],
+	[kelly, 0, 1, 1],
+	[liu, 1, 0, 1],
+	[martinez, 0, 1, 1],
+	[patel, 1, 1, 1],
+	[rodriguez, 1, 0, 0],
+	[smith, 0, 1, 1],
+	[tortorella, 0, 0, 1],
+	[williams, 1, 0, 0],
+	[underwood, 0, 1, 0],
+	[young, 0, 1, 0],	
